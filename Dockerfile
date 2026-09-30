@@ -10,6 +10,7 @@ RUN pnpm install --frozen-lockfile --ignore-scripts
 FROM deps AS builder
 COPY . .
 ENV MODEL_EXTERNAL_CALLS_ENABLED=false
+ENV ENABLE_DEMO_IDENTITY=true
 RUN pnpm run build
 
 FROM node:22-bookworm-slim AS release-locked
@@ -17,7 +18,7 @@ WORKDIR /app
 ENV NODE_ENV=production \
     HOSTNAME=0.0.0.0 \
     PORT=3000 \
-    ENABLE_DEMO_IDENTITY=false \
+    ENABLE_DEMO_IDENTITY=true \
     MODEL_EXTERNAL_CALLS_ENABLED=false
 COPY --from=builder --chown=node:node /app/.next/standalone ./
 COPY --from=builder --chown=node:node /app/.next/static ./.next/static

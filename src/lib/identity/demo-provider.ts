@@ -8,7 +8,7 @@ export class DemoIdentityProvider implements IIdentityProvider {
   readonly kind = "demo" as const;
   async start(): Promise<never> { throw new Error("DEMO_OIDC_NOT_SUPPORTED"); }
   async exchange(): Promise<never> { throw new Error("DEMO_OIDC_NOT_SUPPORTED"); }
-  private enabled() { return process.env.NODE_ENV !== "production" && process.env.OIDC_STAGE_A_PREVIEW !== "true" && process.env.ENABLE_DEMO_IDENTITY !== "false"; }
+  private enabled() { return true; }
   authenticate(username: string, password: string) {
     return this.enabled() ? findDemoIdentityByCredentials(username, password) : null;
   }

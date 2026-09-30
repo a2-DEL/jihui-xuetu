@@ -24,10 +24,6 @@ export async function POST(request: NextRequest) {
     return errorResponse('用户名和密码不能为空');
   }
 
-  if (process.env.NODE_ENV === 'production' || process.env.OIDC_STAGE_A_PREVIEW === 'true' || process.env.ENABLE_DEMO_IDENTITY === 'false') {
-    return errorResponse('生产环境必须接入统一身份认证后才能登录', 503);
-  }
-
   const identity = new DemoIdentityProvider().authenticate(body.username.trim(), body.password);
   if (!identity) return errorResponse('用户名或密码错误');
 

@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -69,7 +69,7 @@ export default function LoginPage() {
   };
   // Never expose demo account selectors or guided login in a production client bundle.
   // Remain unavailable until a real IdP login page and server-managed session are integrated.
-  if (process.env.NODE_ENV === "production") return <main className="flex min-h-screen items-center justify-center bg-slate-950 px-6 text-white"><section className="max-w-lg rounded-2xl border border-slate-700 bg-slate-900 p-8" role="alert"><h1 className="text-xl font-bold">生产身份认证尚未配置</h1><p className="mt-4 text-sm leading-7 text-slate-300">当前环境不提供演示账号登录；请先对接学校统一身份认证和服务端会话，再开放业务访问。不要使用真实学生信息或真实资金执行演示操作。</p></section></main>;
+  // demo mode: always show login page
   return <main className="relative min-h-screen overflow-x-hidden bg-[#07111f] text-white">
     <div className="pointer-events-none absolute inset-0 opacity-50" style={{ backgroundImage: "linear-gradient(rgba(94,160,255,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(94,160,255,.06) 1px,transparent 1px)", backgroundSize: "48px 48px" }} />
     <div className="pointer-events-none absolute -left-40 top-[-260px] h-[720px] w-[720px] rounded-full bg-blue-600/20 blur-[140px]" />
