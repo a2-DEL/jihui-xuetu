@@ -1,0 +1,49 @@
+name: jhxt-local-review
+
+services:
+  # Safe default: production gate remains closed. This is a packaging smoke test,
+  # not an online demo or a deployable business system.
+  release-locked:
+    build:
+      context: .
+      target: release-locked
+    image: jhxt-release-locked:local
+    ports:
+      - "127.0.0.1:8080:3000"
+    environment:
+      NODE_ENV: production
+      ENABLE_DEMO_IDENTITY: "false"
+      MODEL_EXTERNAL_CALLS_ENABLED: "false"
+      OIDC_STAGE_A_PREVIEW: "false"
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    restart: "no"
+
+  # Opt-in, loopback-only development demo. NEVER map this port through
+  # Oray/other tunnels; demo IDs are not authenticated production sessions.
+  local-demo:
+    profiles: ["local-demo"]
+    build:
+      context: .
+      target: local-demo
+    image: jhxt-local-demo:local
+    ports:
+      - "127.0.0.1:8081:3000"
+    environment:
+      NODE_ENV: development
+      ENABLE_DEMO_IDENTITY: "true"
+      MODEL_EXTERNAL_CALLS_ENABLED: "false"
+      OIDC_STAGE_A_PREVIEW: "false"
+      AI_CONVERSATION_STORAGE: json
+    volumes:
+      - demo-runtime:/app/.runtime
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    restart: "no"
+
+volumes:
+  demo-runtime:

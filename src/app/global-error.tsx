@@ -1,0 +1,3 @@
+﻿"use client";
+import { useEffect } from "react";
+export default function GlobalError({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) { useEffect(() => { console.error(error); }, [error]); return <html lang="zh-CN"><body className="flex min-h-screen items-center justify-center bg-slate-950 p-6 text-white"><div className="max-w-lg text-center"><p className="text-xs uppercase tracking-[.2em] text-blue-300">JIHUI PLATFORM</p><h1 className="mt-4 text-2xl font-semibold">系统界面发生异常</h1><p className="mt-3 text-sm leading-6 text-slate-400">业务数据未被修改。请重新加载界面，系统会保留服务端审计记录。</p><button onClick={reset} className="mt-6 rounded-xl bg-blue-600 px-5 py-3 text-sm font-medium">重新加载</button></div></body></html>; }

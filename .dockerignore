@@ -1,0 +1,29 @@
+# Deny by default. Explicitly include only files needed to build/run this Next.js app.
+**
+!package.json
+!pnpm-lock.yaml
+!pnpm-workspace.yaml
+!.npmrc
+!next.config.ts
+!tsconfig.json
+!next-env.d.ts
+!postcss.config.mjs
+!public/
+!public/**
+!src/
+!src/**
+!docs/
+!docs/role-function-baseline-v6.json
+
+# Defense in depth: these must never be in the build context, even if an
+# exception above is broadened later. Never copy private .env.local.
+.env*
+!.env.example
+.git/
+.next/
+.runtime/
+node_modules/
+assets/
+artifacts/
+*.log
+**/*.log

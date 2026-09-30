@@ -1,0 +1,4 @@
+﻿"use client";
+import { AlertTriangle, RefreshCw } from "lucide-react";
+import { Button } from "@/components/ui/button";
+export default function AppError({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) { return <div className="flex min-h-[60vh] items-center justify-center"><div className="w-full max-w-lg rounded-3xl border border-rose-200 bg-white p-8 text-center shadow-sm"><span className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-rose-50 text-rose-600"><AlertTriangle className="h-6 w-6" /></span><h2 className="mt-5 text-xl font-semibold text-slate-900">当前模块暂时无法加载</h2><p className="mt-2 text-sm leading-6 text-slate-500">系统已隔离本次异常，不会影响其他业务模块。请重试；若持续出现，可将错误编号提交给管理员。</p><p className="mt-3 rounded-lg bg-slate-50 px-3 py-2 font-mono text-[10px] text-slate-400">{error.digest ?? error.message.slice(0, 120)}</p><Button onClick={reset} className="mt-5"><RefreshCw className="mr-2 h-4 w-4" />重新加载模块</Button></div></div>; }

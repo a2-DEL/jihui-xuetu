@@ -1,0 +1,6 @@
+import { createClient, type SupabaseClient } from "@supabase/supabase-js";
+interface SupabaseCredentials{url:string;anonKey:string}
+export function loadEnv():void{/* Environment variables are loaded by Next.js. */}
+export function getSupabaseCredentials():SupabaseCredentials{const url=process.env.COZE_SUPABASE_URL??process.env.SUPABASE_URL,anonKey=process.env.COZE_SUPABASE_ANON_KEY??process.env.SUPABASE_ANON_KEY;if(!url)throw new Error("SUPABASE_URL is not configured");if(!anonKey)throw new Error("SUPABASE_ANON_KEY is not configured");return{url,anonKey}}
+export function getSupabaseServiceRoleKey(){return process.env.COZE_SUPABASE_SERVICE_ROLE_KEY??process.env.SUPABASE_SERVICE_ROLE_KEY}
+export function getSupabaseClient(token?:string):SupabaseClient{const{url,anonKey}=getSupabaseCredentials(),key=token?anonKey:(getSupabaseServiceRoleKey()??anonKey);return createClient(url,key,{global:token?{headers:{Authorization:`Bearer ${token}`}}:undefined,db:{timeout:60000},auth:{autoRefreshToken:false,persistSession:false}})}
